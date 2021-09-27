@@ -68,10 +68,25 @@ function draw(){
 }
 
 function mouseDragged(){
-    Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
+    Matter.Events.on(engine, "afterUpdate", function(){
+        Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
+
+    })
+    
+    
 }
 
 
 function mouseReleased(){
     slingshot.fly();
+    engine.events={};
+}
+
+function keyPressed(){
+    if(keyCode===32){
+        slingshot.attach(bird.body)
+        Matter.Body.setPosition(bird.body, {x: 200 , y:50});
+    }
+
+
 }
